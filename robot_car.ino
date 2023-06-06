@@ -1,6 +1,9 @@
+//remember to set custom wifi and password
+//install esp boards: set additional boards manager url to https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+//set board to FireBeetle-ESP32
 #include <WiFi.h>
-#include <AsyncTCP.h>
-#include <ESPAsyncWebServer.h>
+#include <AsyncTCP.h> //must install asynctcp library. Go to tools > manage libraries > search up "asynctcp" > hit install
+#include <ESPAsyncWebServer.h> //must install ESPAsyncWebServer library. Go to https://github.com/me-no-dev/ESPAsyncWebServer/archive/master.zip and it should download a file. Go to sketch > include library > add .zip library > select the downloaded file
 
 const char* ssid = "McRoberts_Guest";
 const char* password = "mcrob6600";
@@ -136,7 +139,7 @@ void setup(){
     delay(1000);
     Serial.println("Connecting to wifi...");
   }
-  Serial.print("enter this in your web browser: ")
+  Serial.print("make sure you're connected to McRoberts_Guest and enter this in your web browser: ");
   Serial.println(WiFi.localIP());
   }
 
