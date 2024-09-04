@@ -1,12 +1,12 @@
 //remember to set custom wifi and password
 //install esp boards: set additional boards manager url to https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
-//set board to FireBeetle-ESP32
 #include <WiFi.h>
 #include <AsyncTCP.h> //must install asynctcp library. Go to tools > manage libraries > search up "asynctcp" > hit install
 #include <ESPAsyncWebServer.h> //must install ESPAsyncWebServer library. Go to https://github.com/me-no-dev/ESPAsyncWebServer/archive/master.zip and it should download a file. Go to sketch > include library > add .zip library > select the downloaded file
 
-const char* ssid = "McRoberts_Guest";
-const char* password = "mcrob6600";
+// FOR CONNECTION OVER LOCAL WIRELESS NETWORK
+const char* ssid = ""; //enter the local wifi
+const char* password = ""; //enter the password for the wifi
 
 const char* apssid = "";  //set your own wifi name 
 const char* appassword = "";  //set your own password (at least 8 characters)
@@ -17,7 +17,7 @@ int IN2 = 18;
 int IN3 = 13;
 int IN4 = 12;
 int ENB_pin = 14;
-bool usedirect = false; //true = direct connection to board (uses own wifi) false = connects from school wifi
+bool usedirect = false; //true = direct connection to board (uses own wifi) false = connects from local wifi
 
 String slider_value = "0";
 const char* input_parameter = "value";
@@ -129,7 +129,7 @@ void setup(){
   if (usedirect == true){
   WiFi.softAP(apssid, appassword);
   IPAddress IP = WiFi.softAPIP();
-  Serial.print("connect to your wifi and enter this in your web browser: ");
+  Serial.print("Connect to the newly created wifi network and enter this in your web browser: ");
   Serial.println(IP);
   }
 
@@ -139,11 +139,11 @@ void setup(){
     delay(1000);
     Serial.println("Connecting to wifi...");
   }
-  Serial.print("make sure you're connected to McRoberts_Guest and enter this in your web browser: ");
+  Serial.print("Make sure you're connected to the local wifi and enter this in your web browser: ");
   Serial.println(WiFi.localIP());
   }
 
-  //everything below controls happens when certain url links are accessed
+  //everything below controls happens when certain url links are accessed, aka this is the code for the controller on the web server
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send_P(200, "text/html", index_html, processor);
   });
